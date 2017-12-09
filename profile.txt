@@ -1,0 +1,12 @@
+PS1="\[$(tput setaf 0)\][ \[$(tput setaf 12)\]user\[$(tput setaf 11)\]:\[$(tput setaf 0)\]\u ] [ \[$(tput setaf 12)\]dir\[$(tput setaf 11)\]:\[$(tput setaf 0)\]\w ]\n\\$ \[$(tput sgr0)\]"
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+export GREP_OPTIONS="--color=auto"
+
+free () {
+antes=$(top -l 1 | head -n 10 | grep PhysMem | sed 's/, /n /g;s/used.*//;s/ //g;s/.*://g;s/[mM]//g')
+sudo purge
+despues=$(top -l 1 | head -n 10 | grep PhysMem | sed 's/, /n /g;s/used.*//;s/ //g;s/.*://g;s/[mM]//g')
+total=`expr $antes - $despues`
+echo -n "PurgedMem by 'free': ${total}M. " && top -l 1 | head -n 10 | grep PhysMem | sed 's/, /n /g'
+}
